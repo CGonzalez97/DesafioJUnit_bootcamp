@@ -63,4 +63,10 @@ public class CarritoCompraServiceImpl implements CarritoCompraService {
 		return precioNuevo;
 	}
 	
+	public Integer insertarEnDbYLista(Integer id, Articulo a) {
+		Integer idAux = baseDatosService.insertarArticulo(id,a);
+		listaArticulos.add(baseDatosService.findArticuloById(idAux));	
+		return idAux;
+	}
+	
 }

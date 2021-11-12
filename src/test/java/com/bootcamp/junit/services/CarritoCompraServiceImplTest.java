@@ -4,7 +4,10 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertNull;
 import static org.junit.jupiter.api.Assertions.assertTrue;
+import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.ArgumentMatchers.anyInt;
+import static org.mockito.Mockito.times;
+import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 
 import java.util.ArrayList;
@@ -111,6 +114,17 @@ class CarritoCompraServiceImplTest {
 		when(baseDatosService.findArticuloById(anyInt())).thenReturn(null);
 		Double descuento = 5.0;
 		assertNull(carritoCompraService.aplicarDescuento(2, descuento));
+	}
+	
+	@Test
+	void testInsertarEnDbYLista() {
+		Integer idEsperado = 10;
+		Articulo artAux = new Articulo("Botas",32.99);
+		when(baseDatosService.insertarArticulo(anyInt(), any(Articulo.class))).thenReturn(idEsperado);
+		when(baseDatosService.findArticuloById(anyInt())).thenReturn(artAux);
+		assertEquals(idEsperado, carritoCompraService.insertarEnDbYLista(idEsperado, artAux));
+		assertTrue(carritoCompraService.getArticulos().contains(artAux));
+		verify(baseDatosService,times(1)).insertarArticulo(anyInt(), any(Articulo.class));
 	}
 
 }

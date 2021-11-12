@@ -1,7 +1,5 @@
 package com.bootcamp.junit.bbdd;
 
-import java.util.Map;
-
 import com.bootcamp.junit.models.Articulo;
 
 public interface BaseDatosService {

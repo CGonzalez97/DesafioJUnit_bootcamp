@@ -15,14 +15,6 @@ public class BaseDatosServiceImpl implements BaseDatosService {
 	@Override
 	public void inicializarDB() {		
 		storage = new HashMap();
-//		storage.put(1, new Articulo("Camiseta",18.95));
-//		storage.put(2, new Articulo("Jersey",15.95));
-//		storage.put(3, new Articulo("Cinturon",18.95));
-//		storage.put(4, new Articulo("Sudadera",18.95));
-//		storage.put(5, new Articulo("Pantalón",18.95));
-//		storage.put(6, new Articulo("Zapatos",18.95));
-//		storage.put(7, new Articulo("Chaqueta",18.95));
-//		storage.put(8, new Articulo("Chandal",18.95));
 		
 		insertarArticulo(new Articulo("Camiseta",18.95));
 		insertarArticulo(new Articulo("Jersey",15.95));
@@ -44,9 +36,35 @@ public class BaseDatosServiceImpl implements BaseDatosService {
 		storage.put(storage.size()+1, articulo);
 		return articulo;
 	}
+	
+	
+	public Integer insertarArticulo(Integer id,Articulo articulo) {
+		Integer retorno = null;
+		if(!storage.containsKey(id)) {
+			storage.put(id, articulo);
+		}else {
+			System.out.println("Id ya en uso. Seleccione otro.");
+		}
+		for (Integer clave : storage.keySet()) {
+			if(storage.get(clave).equals(articulo)) {
+				retorno = clave;
+			}
+		}
+		return retorno;
+	}
 
 	public int lastIndex() {
 		return storage.size();
 	}
+
+	public Map<Integer, Articulo> getStorage() {
+		return storage;
+	}
+
+	public void setStorage(Map<Integer, Articulo> storage) {
+		this.storage = storage;
+	}
+	
+	
 	
 }
